@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Jam Digital WIB</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: #111827;
+      color: #ffffff;
+
+      font-family: Arial, Helvetica, sans-serif;
+      overflow: hidden;
+    }
+
+    .clock {
+      text-align: center;
+    }
+
+    #time {
+      font-size: 80px;
+      font-weight: 700;
+      letter-spacing: 5px;
+      line-height: 1;
+    }
+
+    #date {
+      margin-top: 18px;
+      font-size: 22px;
+      color: #9ca3af;
+      text-transform: capitalize;
+    }
+
+    .timezone {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #6b7280;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 600px) {
+      #time {
+        font-size: 50px;
+      }
+
+      #date {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="clock">
+
+    <div id="time">
+      00:00:00
+    </div>
+
+    <div id="date">
+      Memuat...
+    </div>
+
+    <div class="timezone">
+      WIB • ASIA/JAKARTA
+    </div>
+
+  </div>
+
+  <script>
+
+    function updateClock() {
+
+      const now = new Date();
+
+      // JAM WIB
+      const time = new Intl.DateTimeFormat('id-ID', {
+        timeZone: 'Asia/Jakarta',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }).format(now);
+
+      // TANGGAL WIB
+      const date = new Intl.DateTimeFormat('id-ID', {
+        timeZone: 'Asia/Jakarta',
+        weekday: 'long',
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      }).format(now);
+
+      document.getElementById('time').textContent = time;
+      document.getElementById('date').textContent = date;
+
+    }
+
+    // Jalankan saat pertama kali dibuka
+    updateClock();
+
+    // Update setiap 1 detik
+    setInterval(updateClock, 1000);
+
+  </script>
+
+</body>
+</html>
